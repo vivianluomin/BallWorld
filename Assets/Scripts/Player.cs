@@ -11,7 +11,13 @@ public class Player : MonoBehaviour {
 
     public float rotateSpeed = 3.0f;
 
+    public float pushForceLight = 5.0f;
+    public float pushForceWeight = 10.0f;
+
+    private float distance = 2f;
+
     CharacterController controller;
+    private ControllerColliderHit contact;
 
 
 	// Use this for initialization
@@ -32,12 +38,57 @@ public class Player : MonoBehaviour {
         if (ver !=0 || hor != 0){
             Rotating(hor, ver);
         }
-        else
-        {
 
+        if (Input.GetKeyUp(KeyCode.F))
+        {
+            Ray ray = new Ray(transform.position, transform.forward);
+            RaycastHit hit;
+            if(Physics.SphereCast(ray,controller.height/2,out hit))
+            {
+               if (hit.distance < this.distance){
+                    Collider collider = hit.collider;
+                    
+                    if(collider!=null)
+                    {
+                        Rigidbody rigidbody = collider.attachedRigidbody;
+                        if(rigidbody!=null && !rigidbody.isKinematic)
+                        {
+                            
+                            rigidbody.velocity = transform.TransformDirection(Vector3.forward) *3* pushForceLight;
+                            hit.transform.SendMessage("setPush", true);
+                        }
+                            
+                    }
+                
+
+                }
+            }
+        }else if (Input.GetKeyUp(KeyCode.G)){
+            Ray ray = new Ray(transform.position, transform.forward);
+            RaycastHit hit;
+            if (Physics.SphereCast(ray, controller.height / 2, out hit))
+            {
+                if (hit.distance < this.distance)
+                {
+                    Collider collider = hit.collider;
+                    if (collider != null)
+                    {
+                        Rigidbody rigidbody = collider.attachedRigidbody;
+                        if (rigidbody != null && !rigidbody.isKinematic)
+                        {
+                            hit.transform.SendMessage("setPush", true);
+                            rigidbody.velocity = transform.TransformDirection(Vector3.forward) * 3 *pushForceWeight;
+
+                        }
+
+                    }
+
+
+                }
+            }
         }
        
-        controller.SimpleMove(movment );
+        controller.Move(movment*Time.deltaTime );
 	}
 
     private void Rotating(float  horizontal , float vertical)
@@ -48,4 +99,11 @@ public class Player : MonoBehaviour {
           transform.rotation = newRotaiton;
        // transform.Rotate(targetDirection * rotateSpeed);
     }
+
+  
+    void OnControllerColliderHit(ControllerColliderHit hit) 
+    {
+        contact = hit;
+    }
+ 
 }
