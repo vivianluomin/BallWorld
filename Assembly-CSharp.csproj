@@ -48,9 +48,13 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Camera.cs" />
      <Compile Include="Assets\Scripts\CameraFollow.cs" />
+     <Compile Include="Assets\Scripts\MosterController.cs" />
      <Compile Include="Assets\Scripts\ParticleController.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
+     <Compile Include="Assets\Scripts\WanderingAI.cs" />
      <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
+     <None Include="Assets\Toon Zombie S\TSF\Shaders\TSFOutline.shader" />
+     <None Include="Assets\Toon Zombie S\TSF\Shaders\TSF.shader" />
      <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAddSoft.shader" />
      <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
  <Reference Include="UnityEngine.UI">
