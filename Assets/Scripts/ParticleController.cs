@@ -18,18 +18,41 @@ public class ParticleController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(push && rigidbody!=null&& rigidbody.velocity.Equals(Vector3.zero))
+		if(push)
         {
-            ParticleSystem particle = (Instantiate(firePrefab) as ParticleSystem);
-            particle.gameObject.transform.position = transform.position;
-            push = false;
-            Destroy(this.gameObject);
-           
+            Ray ray = new Ray(transform.position, transform.forward);
+            RaycastHit hit;
+            if(Physics.Raycast(ray,out hit, 0.3f))
+            {
+                Debug.Log(hit.collider.gameObject.name + "RRRRRRRR");
+                Boom(hit.point);
+            }
+            else
+            {
+                if (rigidbody.velocity.Equals(Vector3.zero))
+                 {
+                    Boom(transform.position);
+                }
+            }         
+
         }
 	}
 
     public void setPush(bool pushed)
     {
         push = pushed;
+    }
+
+    public void CreateParticle(Vector3 pos)
+    {
+        ParticleSystem particle = (Instantiate(firePrefab) as ParticleSystem);
+        particle.gameObject.transform.position = pos;
+    }
+
+    public void Boom(Vector3 pos)
+    {
+        CreateParticle(pos);
+        push = false;
+        Destroy(this.gameObject);
     }
 }

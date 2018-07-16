@@ -55,7 +55,8 @@ public class Player : MonoBehaviour {
                         {
                             
                             rigidbody.velocity = transform.TransformDirection(Vector3.forward) *3* pushForceLight;
-                            hit.transform.SendMessage("setPush", true);
+                            ParticleController ball =  collider.gameObject.GetComponent<ParticleController>();
+                            ball.setPush(true);
                         }
                             
                     }
@@ -76,8 +77,10 @@ public class Player : MonoBehaviour {
                         Rigidbody rigidbody = collider.attachedRigidbody;
                         if (rigidbody != null && !rigidbody.isKinematic)
                         {
-                            hit.transform.SendMessage("setPush", true);
-                            rigidbody.velocity = transform.TransformDirection(Vector3.forward) * 3 *pushForceWeight;
+                            rigidbody.velocity = transform.TransformDirection(Vector3.forward) * 3 * pushForceWeight;
+                            ParticleController ball = collider.gameObject.GetComponent<ParticleController>();
+                            ball.setPush(true);
+                           
 
                         }
 
