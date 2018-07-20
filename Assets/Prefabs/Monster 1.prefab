@@ -462,6 +462,7 @@ GameObject:
   - component: {fileID: 95397597012015086}
   - component: {fileID: 136919390013463548}
   - component: {fileID: 114295208361776352}
+  - component: {fileID: 114928147044904442}
   m_Layer: 19
   m_Name: Monster 1
   m_TagString: monster
@@ -677,7 +678,7 @@ GameObject:
   - component: {fileID: 114102406564537062}
   m_Layer: 19
   m_Name: Canvas
-  m_TagString: Untagged
+  m_TagString: monsterCanvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1739,6 +1740,8 @@ MonoBehaviour:
   crewSpeed: 1
   obstacleRange: 5
   slider: {fileID: 114061634438230278}
+  blodValue_Prefab: {fileID: 1832444763146100, guid: 3a34de20c341a2848b38f0083f6fd8a6,
+    type: 2}
 --- !u!114 &114469243810419056
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1804,6 +1807,43 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114928147044904442
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1491373245032836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d7337b1f47594e4c8e256c8c07b73b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tagMask: ball
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  firstInEvent:
+    events: []
+  lastOutEvent:
+    events: []
+  enterEvent:
+    events:
+    - name: Damge
+      parameter:
+        paramType: 4
+        intParam: 0
+        floatParam: 0
+        stringParam: 
+        vectorParam: {x: 0, y: 0, z: 0}
+        objectParam: {fileID: 0}
+        boolParam: 0
+        dynamicSource: {fileID: 114928147044904442}
+        objectMemberName: LastEventCollider
+      targetId: 0
+      enumTypeName: 
+      overrideTarget: {fileID: 0}
+  exitEvent:
+    events: []
 --- !u!114 &114994360738222380
 MonoBehaviour:
   m_ObjectHideFlags: 1

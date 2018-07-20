@@ -14,6 +14,10 @@ public class WanderingAI : MonoBehaviour {
     private CharacterController character;
     private bool crew = true;
     public Slider slider;
+
+    [SerializeField] private GameObject blodValue_Prefab;
+    private GameObject blodValue;
+   
  
   
 	// Use this for initialization
@@ -59,9 +63,13 @@ public class WanderingAI : MonoBehaviour {
         }
 	}
 
-     public void Damge(int damge)
+     public void Damge(GameObject game)
     {
-        slider.value -= damge;
+        ParticleController controller = game.GetComponent<ParticleController>();
+        controller.Boom(transform.position);
+        Debug.Log("ssssssssssss");
+        CreateBlodValue(10);
+        slider.value -= 30;
         if(slider.value == 0)
         {
             anim.SetInteger("blod", 0);
@@ -69,6 +77,35 @@ public class WanderingAI : MonoBehaviour {
              StartCoroutine(Died());
         }
         
+        
+    }
+
+    public void Damge(int hurt)
+    {
+        slider.value -= hurt;
+        Debug.Log("aaaaaaaaaaaaa");
+        CreateBlodValue(10);
+        if (slider.value == 0)
+        {
+            anim.SetInteger("blod", 0);
+            speed = 0;
+            StartCoroutine(Died());
+        }
+    }
+
+    public void CreateBlodValue(int value)
+    {
+        Debug.Log(value.ToString());
+        blodValue = Instantiate<GameObject>(blodValue_Prefab);
+        Vector3 po = new Vector3(transform.position.x, 2, transform.position.z);
+        blodValue.transform.position = po;
+        Vector3 targetPosition = new Vector3(transform.position.x, 3, transform.position.z);
+        blodValue.GetComponentInChildren<Text>().text = value.ToString();
+        iTween.MoveTo(blodValue, iTween.Hash("position", targetPosition, "time", 0.5f, "easeType", iTween.EaseType.easeInOutCubic, "loopType", "none"));
+        iTween.ScaleTo(blodValue, iTween.Hash("scale", new Vector3(1.5f, 1.5f, 1.5f), "time", 0.5f, "loopType", "none"));
+       iTween.FadeTo(blodValue, iTween.Hash( "delay",0.1,"time", 0.5f, "alpha", 0));
+        // blodValue.transform.Translate(transform.up*10.0f);
+        StartCoroutine(DeidText());
         
     }
 
@@ -81,6 +118,16 @@ public class WanderingAI : MonoBehaviour {
       
 
         DestroyObject(this.gameObject);
+    }
+
+     IEnumerator DeidText()
+    {
+        for (float timer = 0.5f; timer >= 0; timer -= Time.deltaTime)
+        {
+            yield return null;
+        }
+
+        DestroyObject(blodValue);
     }
 
 }

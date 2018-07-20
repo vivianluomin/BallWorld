@@ -20,14 +20,13 @@ public class ParticelCoillder : MonoBehaviour {
 
     }
 
-    void  OnParticleCollision(GameObject other)
+    void OnParticleCollision(GameObject other)
     {
-        Debug.Log(other.transform.name);
-        if (other.transform.tag.Equals("monster"))
-        {
-            Debug.Log(other.name+"11111111");
-            WanderingAI moster = other.GetComponent<WanderingAI>();
-            moster.Damge(10);
-        }
+       // if (other.tag.Equals("monster"))
+       // {
+          //  WanderingAI aI = other.GetComponent<WanderingAI>();
+           // aI.Damge(10);
+       // }
     }
+   
 }

@@ -9,6 +9,8 @@ TagManager:
   - RainSplashManager
   - ball
   - monster
+  - monsterCanvas
+  - blodText
   layers:
   - Default
   - TransparentFX

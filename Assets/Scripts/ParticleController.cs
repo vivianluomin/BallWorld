@@ -22,19 +22,11 @@ public class ParticleController : MonoBehaviour {
         {
             Ray ray = new Ray(transform.position, transform.forward);
             RaycastHit hit;
-            if(Physics.Raycast(ray,out hit, 0.3f))
-            {
-                Debug.Log(hit.collider.gameObject.name + "RRRRRRRR");
-                Boom(hit.point);
-            }
-            else
-            {
+    
                 if (rigidbody.velocity.Equals(Vector3.zero))
                  {
                     Boom(transform.position);
-                }
-            }         
-
+                }        
         }
 	}
 
@@ -51,8 +43,12 @@ public class ParticleController : MonoBehaviour {
 
     public void Boom(Vector3 pos)
     {
+        if (push)
+        {
         CreateParticle(pos);
         push = false;
         Destroy(this.gameObject);
+        }
+        
     }
 }
